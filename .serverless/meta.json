@@ -1,0 +1,360 @@
+{
+  "E:\\Alejandro\\polygon-nest-aws": {
+    "versionSfCore": null,
+    "versionFramework": "4.1.5",
+    "isWithinCompose": false,
+    "isCompose": false,
+    "composeOrgName": null,
+    "composeResolverProviders": {},
+    "composeServiceName": null,
+    "servicePath": "E:\\Alejandro\\polygon-nest-aws",
+    "serviceConfigFileName": "serverless.yml",
+    "service": {
+      "org": "alejandr0pg",
+      "app": "test-polygon-aws",
+      "service": "serverless-example",
+      "plugins": [
+        "serverless-offline"
+      ],
+      "provider": {
+        "name": "aws",
+        "runtime": "nodejs14.x",
+        "stage": "dev",
+        "region": "us-east-1",
+        "versionFunctions": true,
+        "compiledCloudFormationTemplate": {
+          "AWSTemplateFormatVersion": "2010-09-09",
+          "Description": "The AWS CloudFormation template for this Serverless application",
+          "Resources": {
+            "ServerlessDeploymentBucket": {
+              "Type": "AWS::S3::Bucket",
+              "Properties": {
+                "BucketEncryption": {
+                  "ServerSideEncryptionConfiguration": [
+                    {
+                      "ServerSideEncryptionByDefault": {
+                        "SSEAlgorithm": "AES256"
+                      }
+                    }
+                  ]
+                }
+              }
+            },
+            "ServerlessDeploymentBucketPolicy": {
+              "Type": "AWS::S3::BucketPolicy",
+              "Properties": {
+                "Bucket": {
+                  "Ref": "ServerlessDeploymentBucket"
+                },
+                "PolicyDocument": {
+                  "Statement": [
+                    {
+                      "Action": "s3:*",
+                      "Effect": "Deny",
+                      "Principal": "*",
+                      "Resource": [
+                        {
+                          "Fn::Join": [
+                            "",
+                            [
+                              "arn:",
+                              {
+                                "Ref": "AWS::Partition"
+                              },
+                              ":s3:::",
+                              {
+                                "Ref": "ServerlessDeploymentBucket"
+                              },
+                              "/*"
+                            ]
+                          ]
+                        },
+                        {
+                          "Fn::Join": [
+                            "",
+                            [
+                              "arn:",
+                              {
+                                "Ref": "AWS::Partition"
+                              },
+                              ":s3:::",
+                              {
+                                "Ref": "ServerlessDeploymentBucket"
+                              }
+                            ]
+                          ]
+                        }
+                      ],
+                      "Condition": {
+                        "Bool": {
+                          "aws:SecureTransport": false
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            },
+            "MainLogGroup": {
+              "Type": "AWS::Logs::LogGroup",
+              "Properties": {
+                "LogGroupName": "/aws/lambda/serverless-example-dev-main"
+              }
+            },
+            "IamRoleLambdaExecution": {
+              "Type": "AWS::IAM::Role",
+              "Properties": {
+                "AssumeRolePolicyDocument": {
+                  "Version": "2012-10-17",
+                  "Statement": [
+                    {
+                      "Effect": "Allow",
+                      "Principal": {
+                        "Service": [
+                          "lambda.amazonaws.com"
+                        ]
+                      },
+                      "Action": [
+                        "sts:AssumeRole"
+                      ]
+                    }
+                  ]
+                },
+                "Policies": [
+                  {
+                    "PolicyName": {
+                      "Fn::Join": [
+                        "-",
+                        [
+                          "serverless-example",
+                          "dev",
+                          "lambda"
+                        ]
+                      ]
+                    },
+                    "PolicyDocument": {
+                      "Version": "2012-10-17",
+                      "Statement": [
+                        {
+                          "Effect": "Allow",
+                          "Action": [
+                            "logs:CreateLogStream",
+                            "logs:CreateLogGroup",
+                            "logs:TagResource"
+                          ],
+                          "Resource": [
+                            {
+                              "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/serverless-example-dev*:*"
+                            }
+                          ]
+                        },
+                        {
+                          "Effect": "Allow",
+                          "Action": [
+                            "logs:PutLogEvents"
+                          ],
+                          "Resource": [
+                            {
+                              "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/serverless-example-dev*:*:*"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  }
+                ],
+                "Path": "/",
+                "RoleName": {
+                  "Fn::Join": [
+                    "-",
+                    [
+                      "serverless-example",
+                      "dev",
+                      {
+                        "Ref": "AWS::Region"
+                      },
+                      "lambdaRole"
+                    ]
+                  ]
+                }
+              }
+            }
+          },
+          "Outputs": {
+            "ServerlessDeploymentBucketName": {
+              "Value": {
+                "Ref": "ServerlessDeploymentBucket"
+              }
+            }
+          }
+        },
+        "coreCloudFormationTemplate": {
+          "AWSTemplateFormatVersion": "2010-09-09",
+          "Description": "The AWS CloudFormation template for this Serverless application",
+          "Resources": {
+            "ServerlessDeploymentBucket": {
+              "Type": "AWS::S3::Bucket",
+              "Properties": {
+                "BucketEncryption": {
+                  "ServerSideEncryptionConfiguration": [
+                    {
+                      "ServerSideEncryptionByDefault": {
+                        "SSEAlgorithm": "AES256"
+                      }
+                    }
+                  ]
+                }
+              }
+            },
+            "ServerlessDeploymentBucketPolicy": {
+              "Type": "AWS::S3::BucketPolicy",
+              "Properties": {
+                "Bucket": {
+                  "Ref": "ServerlessDeploymentBucket"
+                },
+                "PolicyDocument": {
+                  "Statement": [
+                    {
+                      "Action": "s3:*",
+                      "Effect": "Deny",
+                      "Principal": "*",
+                      "Resource": [
+                        {
+                          "Fn::Join": [
+                            "",
+                            [
+                              "arn:",
+                              {
+                                "Ref": "AWS::Partition"
+                              },
+                              ":s3:::",
+                              {
+                                "Ref": "ServerlessDeploymentBucket"
+                              },
+                              "/*"
+                            ]
+                          ]
+                        },
+                        {
+                          "Fn::Join": [
+                            "",
+                            [
+                              "arn:",
+                              {
+                                "Ref": "AWS::Partition"
+                              },
+                              ":s3:::",
+                              {
+                                "Ref": "ServerlessDeploymentBucket"
+                              }
+                            ]
+                          ]
+                        }
+                      ],
+                      "Condition": {
+                        "Bool": {
+                          "aws:SecureTransport": false
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "Outputs": {
+            "ServerlessDeploymentBucketName": {
+              "Value": {
+                "Ref": "ServerlessDeploymentBucket"
+              }
+            }
+          }
+        }
+      },
+      "functions": {
+        "main": {
+          "handler": "dist/main.handler",
+          "events": [
+            {
+              "http": {
+                "method": "ANY",
+                "path": "/"
+              }
+            },
+            {
+              "http": {
+                "method": "ANY",
+                "path": "{proxy+}"
+              }
+            }
+          ],
+          "name": "serverless-example-dev-main",
+          "package": {}
+        }
+      }
+    },
+    "serviceRawFile": "# \"org\" ensures this Service is used with the correct Serverless Framework Access Key.\norg: alejandr0pg\n# \"app\" enables Serverless Framework Dashboard features and sharing them with other Services.\napp: test-polygon-aws\nservice: serverless-example\r\n\r\nplugins:\r\n  - serverless-offline\r\n\r\nprovider:\r\n  name: aws\r\n  runtime: nodejs14.x\r\n\r\nfunctions:\r\n  main:\r\n    handler: dist/main.handler\r\n    events:\r\n      - http:\r\n          method: ANY\r\n          path: /\r\n      - http:\r\n          method: ANY\r\n          path: '{proxy+}'\r\n",
+    "command": [
+      "deploy"
+    ],
+    "options": {},
+    "error": {
+      "message": "Cannot read file node_modules\\.pnpm\\@aws-sdk+signature-v4-multi-region@3.587.0\\node_modules\\tslib\\tslib.d.ts due to: EMFILE: too many open files, open 'E:\\Alejandro\\polygon-nest-aws\\node_modules\\.pnpm\\@aws-sdk+signature-v4-multi-region@3.587.0\\node_modules\\tslib\\tslib.d.ts'",
+      "stack": "ServerlessError2: Cannot read file node_modules\\.pnpm\\@aws-sdk+signature-v4-multi-region@3.587.0\\node_modules\\tslib\\tslib.d.ts due to: EMFILE: too many open files, open 'E:\\Alejandro\\polygon-nest-aws\\node_modules\\.pnpm\\@aws-sdk+signature-v4-multi-region@3.587.0\\node_modules\\tslib\\tslib.d.ts'\n    at file:///C:/Users/HP/.serverless/releases/4.1.5/package/dist/sf-core.js:813:26739\n    at tryCatcher (file:///C:/Users/HP/.serverless/releases/4.1.5/package/dist/sf-core.js:394:82107)\n    at Promise2._settlePromiseFromHandler (file:///C:/Users/HP/.serverless/releases/4.1.5/package/dist/sf-core.js:572:10147)\n    at Promise2._settlePromise (file:///C:/Users/HP/.serverless/releases/4.1.5/package/dist/sf-core.js:572:11471)\n    at Promise2._settlePromise0 (file:///C:/Users/HP/.serverless/releases/4.1.5/package/dist/sf-core.js:572:12528)\n    at Promise2._settlePromises (file:///C:/Users/HP/.serverless/releases/4.1.5/package/dist/sf-core.js:572:14124)\n    at _drainQueueStep (file:///C:/Users/HP/.serverless/releases/4.1.5/package/dist/sf-core.js:401:583)\n    at _drainQueue (file:///C:/Users/HP/.serverless/releases/4.1.5/package/dist/sf-core.js:401:479)\n    at Async._drainQueues (file:///C:/Users/HP/.serverless/releases/4.1.5/package/dist/sf-core.js:401:716)\n    at Async.drainQueues [as _onImmediate] (file:///C:/Users/HP/.serverless/releases/4.1.5/package/dist/sf-core.js:397:3295)\n    at process.processImmediate (node:internal/timers:478:21)",
+      "code": "CANNOT_READ_FILE"
+    },
+    "params": {},
+    "machineId": "6c88f569826499f98ec5a90531298aee",
+    "accessKeyV2": "<REDACTED>",
+    "accessKeyV1": "<REDACTED>",
+    "orgId": "afee5faa-1b4a-4796-8123-d0126d757a6c",
+    "orgName": "alejandr0pg",
+    "userId": "PCZnr3tll32mMTPX1F",
+    "dashboard": {
+      "isEnabledForService": true,
+      "requiredAuthentication": false,
+      "orgFeaturesInUse": {
+        "providers": true,
+        "monitoring": false
+      },
+      "orgObservabilityIntegrations": null,
+      "serviceAppId": "PnjpBF1Wc2hy9T9ST8",
+      "serviceProvider": {
+        "accessKeyId": "<REDACTED>",
+        "secretAccessKey": "<REDACTED>",
+        "sessionToken": "<REDACTED>"
+      },
+      "instanceParameters": null
+    },
+    "userName": "alejandr0pg",
+    "subscription": null,
+    "userEmail": "alejandroprz2011@gmail.com",
+    "serviceProviderAwsCredentials": "<REDACTED>",
+    "serviceProviderAwsAccountId": "058264317377",
+    "versionSf": "4.1.5",
+    "serviceProviderAwsCfStackName": "serverless-example-dev",
+    "serviceProviderAwsCfStackId": "arn:aws:cloudformation:us-east-1:058264317377:stack/serverless-example-dev/36e07c50-2e8e-11ef-8ee6-0affd3e88c57",
+    "serviceProviderAwsCfStackCreated": "2024-06-19T22:49:41.337Z",
+    "serviceProviderAwsCfStackUpdated": "2024-06-19T22:53:06.556Z",
+    "serviceProviderAwsCfStackStatus": "UPDATE_COMPLETE",
+    "serviceProviderAwsCfStackOutputs": [
+      {
+        "OutputKey": "MainLambdaFunctionQualifiedArn",
+        "OutputValue": "arn:aws:lambda:us-east-1:058264317377:function:serverless-example-dev-main:2",
+        "Description": "Current Lambda function version",
+        "ExportName": "sls-serverless-example-dev-MainLambdaFunctionQualifiedArn"
+      },
+      {
+        "OutputKey": "ServiceEndpoint",
+        "OutputValue": "https://b6z887c7d5.execute-api.us-east-1.amazonaws.com/dev",
+        "Description": "URL of the service endpoint",
+        "ExportName": "sls-serverless-example-dev-ServiceEndpoint"
+      },
+      {
+        "OutputKey": "ServerlessDeploymentBucketName",
+        "OutputValue": "serverless-example-dev-serverlessdeploymentbucket-cc2gl8x4eftq",
+        "ExportName": "sls-serverless-example-dev-ServerlessDeploymentBucketName"
+      }
+    ]
+  }
+}
