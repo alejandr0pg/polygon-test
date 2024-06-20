@@ -44,7 +44,7 @@ export class ProductsController {
     status: 200,
     description: 'List of products filtered',
   })
-  async filtered(@Query() query) {
+  async filtered(@Query('by') query) {
     return this.productsService.search(query);
   }
 

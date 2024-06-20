@@ -1,19 +1,36 @@
 # "org" ensures this Service is used with the correct Serverless Framework Access Key.
 org: alejandr0pg
 # "app" enables Serverless Framework Dashboard features and sharing them with other Services.
-app: test-polygon-aws
+app: polygon-test-aws
+
+package:
+  individually: true
+  exclude:
+    - package.json
+    - package-lock.json
+    - .git/**
+    - src/**
+    - test/**
+    - e2e/**
+    - nodemon.json
+    - README.md
+  include:
+    - '!node_modules/**'
+
 service: serverless-polygon-test
 
 plugins:
   - serverless-offline
+  - serverless-jetpack
 
 provider:
   name: aws
-  runtime: nodejs14.x
+  runtime: nodejs20.x
 
 functions:
   main:
     handler: dist/main.handler
+    timeout: 30
     events:
       - http:
           method: ANY

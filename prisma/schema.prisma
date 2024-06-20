@@ -15,9 +15,10 @@ datasource db {
 }
 
 model Category {
-  id       String    @id @default(uuid())
-  name     String
-  products Product[]
+  id          String    @id @default(uuid())
+  name        String
+  description String
+  products    Product[]
 
   @@map("categories")
 }
@@ -29,7 +30,7 @@ model Product {
   price         Float
   category_id   String
   stock_count   Int             @default(0)
-  category      Category        @relation(fields: [category_id], references: [id])
+  category      Category        @relation(fields: [category_id], references: [id], onDelete: Cascade)
   ProductInCart ProductInCart[]
 
   @@map("products")
@@ -49,8 +50,8 @@ model ProductInCart {
   product_id   String
   quantity     Int
   total_amount Float
-  cart         Cart    @relation(fields: [cart_id], references: [id])
-  product      Product @relation(fields: [product_id], references: [id])
+  cart         Cart    @relation(fields: [cart_id], references: [id], onDelete: Cascade)
+  product      Product @relation(fields: [product_id], references: [id], onDelete: Cascade)
 
   @@unique([cart_id, product_id])
   @@map("product_in_cart")

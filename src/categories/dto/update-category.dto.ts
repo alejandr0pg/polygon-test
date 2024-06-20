@@ -3,13 +3,19 @@ import { CreateCategoryDto } from './create-category.dto';
 import { IsOptional, IsString } from 'class-validator';
 
 export class UpdateCategoryDto extends PartialType(CreateCategoryDto) {
+  @ApiProperty({
+    example: 'Electronics',
+    description: 'Name of category',
+  })
   @IsOptional()
-  @ApiProperty()
   @IsString()
   name: string;
 
+  @ApiProperty({
+    example: 'PC, Laptop, Phone',
+    description: 'Description of category',
+  })
   @IsOptional()
-  @ApiProperty()
   @IsString()
   description: string;
 }

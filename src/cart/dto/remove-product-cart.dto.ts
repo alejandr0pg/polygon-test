@@ -1,5 +1,11 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsBoolean, IsNotEmpty, IsNumber, IsString } from 'class-validator';
+import {
+  IsBoolean,
+  IsNotEmpty,
+  IsNumber,
+  IsOptional,
+  IsString,
+} from 'class-validator';
 
 export class RemoveProductToCartDto {
   @ApiProperty()
@@ -12,12 +18,14 @@ export class RemoveProductToCartDto {
   @IsString()
   product_id: string;
 
-  @ApiProperty()
+  @ApiProperty({ required: false, default: 1 })
+  @IsOptional()
   @IsNumber()
-  quantity: number;
+  quantity?: number = 1;
 
-  @ApiProperty()
+  @ApiProperty({ required: false, default: false })
   @IsNotEmpty()
   @IsBoolean()
-  all: boolean;
+  @IsOptional()
+  all?: boolean = false;
 }

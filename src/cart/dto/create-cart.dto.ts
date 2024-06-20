@@ -1,9 +1,10 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty, IsString } from 'class-validator';
+import { IsNotEmpty, IsNumber, IsOptional } from 'class-validator';
 
 export class CreateCartDto {
-  @ApiProperty()
+  @ApiProperty({ required: false, default: 0 })
   @IsNotEmpty()
-  @IsString()
-  total_amount: number;
+  @IsNumber()
+  @IsOptional()
+  total_amount: number = 0;
 }

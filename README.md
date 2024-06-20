@@ -1,4 +1,4 @@
-# Serverless project with Node.js
+# Serverless project with Node.js and Nest.js Framework
 
 This repository contains the code and instructions necessary to deploy a project using Node.js and the Serverless framework. Below are the requirements, installation steps, and commands necessary to run and deploy the application.
 
@@ -6,6 +6,7 @@ This repository contains the code and instructions necessary to deploy a project
 
 - Node.js version 14 or higher
 - Serverless Framework
+- Nest.js CLI
 
 ## Facility
 
@@ -35,7 +36,14 @@ DIRECT_URL="DIRECT_DB_ROUTE"
 
 ```
 
-### Step 4: Local Construction and Execution
+### Step 4: Generate prisma client and push db
+
+```bash
+npx prisma generate
+npx prisma db push
+```
+
+### Step 5: Local Construction and Execution
 
 Once the dependencies are installed, the project should be compiled using NestJS and run Serverless locally for testing.
 
@@ -44,15 +52,15 @@ npm run build
 serverless offline start
 ```
 
-### Step 5: Cloud Deployment
+To access the API documentation, go to the following link: http://localhost:3000/dev/openapi#/ or postman documentacion https://documenter.getpostman.com/view/357277/2sA3XV7yq9
+
+### Step 6: Cloud Deployment
 
 To deploy the project to AWS, run the following command:
 
 ```bash
 serverless deploy
 ```
-
-To access the API documentation, go to the following link: http://localhost:3000/dev/openapi#/
 
 With these steps, you will have your project ready to be deployed and executed both locally and in the cloud using the Serverless framework.
 
@@ -61,5 +69,3 @@ With these steps, you will have your project ready to be deployed and executed b
 Note: Make sure you have your AWS credentials configured correctly for a smooth deployment.
 
 For more information and advanced configuration, see the official Serverless documentation.
-
---

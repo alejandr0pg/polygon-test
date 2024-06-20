@@ -44,7 +44,7 @@ export class CartController {
     return this.cartService.assingProduct(assignProductDto);
   }
 
-  @Delete()
+  @Delete('remove')
   @ApiResponse({
     status: 200,
     description: 'The record has been successfully remove to cart.',
@@ -58,7 +58,7 @@ export class CartController {
     return this.cartService.removeProduct(removeToCartDto);
   }
 
-  @Delete(':cartId')
+  @Delete(':id')
   @ApiOperation({ summary: 'Delete cart' })
   @ApiResponse({
     status: 200,
